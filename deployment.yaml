@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-sandbox-app
+  labels:
+    app: my-sandbox-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-sandbox-app
+  template:
+    metadata:
+      labels:
+        app: my-sandbox-app
+    spec:
+      containers:
+      - name: my-sandbox-app
+        image: sandboxacr26.azurecr.io/my-sandbox-app:v1
+        ports:
+        - containerPort: 80
