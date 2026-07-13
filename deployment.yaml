@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: my-sandbox-app
-        image: sandboxacr26.azurecr.io/my-sandbox-app:v1
+        image: sandboxacr26.azurecr.io/my-sandbox-app:v2
         ports:
         - containerPort: 80
