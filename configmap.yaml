@@ -1,0 +1,150 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: health-web-config   # Must match the name in the deployment.yaml
+data:
+  index.html: |
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>GreenValley Health - Patient Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #e0f0f3, #b5d6d9); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 40, 50, 0.2);
+            width: 100%;
+            max-width: 480px;
+        }
+        h1 { 
+            color: #145a6a; 
+            text-align: center; 
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .subtitle { 
+            text-align: center; 
+            color: #4a7a8a; 
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        label { 
+            font-weight: 600; 
+            display: block; 
+            margin-top: 18px; 
+            color: #1d3b44;
+            font-size: 14px;
+        }
+        input, textarea, select {
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 2px solid #dde8ec; 
+            border-radius: 10px; 
+            margin-top: 6px; 
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus {
+            border-color: #2a8f9f;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(42, 143, 159, 0.1);
+        }
+        button {
+            width: 100%; 
+            background: #145a6a; 
+            color: white; 
+            padding: 14px; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 18px; 
+            font-weight: bold;
+            margin-top: 25px; 
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #0e4552;
+            transform: scale(1.01);
+        }
+        .version-tag {
+            text-align: center; 
+            margin-top: 20px; 
+            color: #7a9aa5; 
+            font-size: 12px;
+            background: #eef5f7;
+            padding: 5px;
+            border-radius: 20px;
+        }
+        .hidden { display: none; }
+        #successMessage {
+            background: #dff0f2;
+            color: #145a6a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🏥 GreenValley Health</h1>
+    <p class="subtitle">Book your appointment online</p>
+
+    <form id="appointmentForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="e.g. Jane Doe" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="jane@example.com" required>
+
+        <label for="reason">Reason for Visit</label>
+        <textarea id="reason" rows="3" placeholder="Describe your symptoms..." required></textarea>
+
+        <button type="submit">📅 Submit Request</button>
+    </form>
+
+    <div id="successMessage" class="hidden">
+        ✅ Appointment request received! We'll contact you within 24 hours.
+    </div>
+
+    <div class="version-tag">Interactive Portal v2.0 | Live</div>
+</div>
+
+<script>
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent browser refresh
+
+        // Grab the name to personalize the message
+        const name = document.getElementById('name').value;
+
+        // Show the success message
+        const msg = document.getElementById('successMessage');
+        msg.classList.remove('hidden');
+        msg.innerText = `✅ Thank you, ${name}! Your appointment request has been received.`;
+
+        // Clear the form fields (optional)
+        this.reset();
+
+        // Scroll to the success message smoothly
+        msg.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>
