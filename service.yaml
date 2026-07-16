@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-sandbox-app-service
+  name: health-web-service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  # This gives a public Azure IP
   selector:
-    app: my-sandbox-app
+    app: health-centre-web   # Must match the labels in your deployment.yaml
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 80          # The port people visit on the internet
+    targetPort: 80    # The port your Nginx container is listening on
