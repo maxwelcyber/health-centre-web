@@ -5,129 +5,240 @@ metadata:
 data:
   index.html: |
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>GreenValley Health - Patient Portal</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>GreenValley Health · Patient Portal</title>
         <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                background: linear-gradient(135deg, #e0f0f3, #b5d6d9); 
-                display: flex; 
-                justify-content: center; 
-                align-items: center; 
-                min-height: 100vh;
+            * {
                 margin: 0;
-                padding: 20px;
+                padding: 0;
+                box-sizing: border-box;
             }
-            .card {
-                background: white;
-                padding: 40px;
-                border-radius: 20px;
-                box-shadow: 0 20px 60px rgba(0, 40, 50, 0.2);
+
+            body {
+                font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(145deg, #d4e9f0 0%, #a8c9d4 100%);
+                padding: 24px;
+                margin: 0;
+            }
+
+            .portal-card {
+                max-width: 520px;
                 width: 100%;
-                max-width: 480px;
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-radius: 40px;
+                padding: 40px 32px;
+                box-shadow: 0 30px 80px rgba(0, 40, 50, 0.25);
+                border: 1px solid rgba(255, 255, 255, 0.6);
+                transition: transform 0.2s ease;
             }
-            h1 { 
-                color: #145a6a; 
-                text-align: center; 
-                font-size: 28px;
-                margin-bottom: 5px;
+
+            .portal-card:hover {
+                transform: translateY(-4px);
             }
-            .subtitle { 
-                text-align: center; 
-                color: #4a7a8a; 
-                margin-bottom: 25px;
-                font-size: 14px;
+
+            .brand-icon {
+                text-align: center;
+                font-size: 48px;
+                margin-bottom: 6px;
+                letter-spacing: 2px;
             }
-            label { 
-                font-weight: 600; 
-                display: block; 
-                margin-top: 18px; 
-                color: #1d3b44;
-                font-size: 14px;
+
+            h1 {
+                font-size: 30px;
+                font-weight: 700;
+                color: #0b3b47;
+                text-align: center;
+                letter-spacing: -0.5px;
+                margin-bottom: 4px;
             }
-            input, textarea, select {
-                width: 100%; 
-                padding: 12px 15px; 
-                border: 2px solid #dde8ec; 
-                border-radius: 10px; 
-                margin-top: 6px; 
+
+            .tagline {
+                text-align: center;
+                color: #2c6b7a;
                 font-size: 15px;
-                transition: 0.3s;
+                font-weight: 400;
+                margin-bottom: 28px;
+                border-bottom: 2px solid rgba(11, 59, 71, 0.08);
+                padding-bottom: 18px;
             }
-            input:focus, textarea:focus {
-                border-color: #2a8f9f;
+
+            .input-group {
+                margin-bottom: 18px;
+            }
+
+            .input-group label {
+                display: block;
+                font-weight: 600;
+                font-size: 14px;
+                color: #1a4a57;
+                margin-bottom: 5px;
+                letter-spacing: 0.3px;
+            }
+
+            .input-group input,
+            .input-group select,
+            .input-group textarea {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 15px;
+                border: 2px solid #d7e6eb;
+                border-radius: 16px;
+                background: white;
+                transition: 0.2s;
+                font-family: inherit;
+            }
+
+            .input-group input:focus,
+            .input-group select:focus,
+            .input-group textarea:focus {
+                border-color: #1f7b8f;
                 outline: none;
-                box-shadow: 0 0 0 3px rgba(42, 143, 159, 0.1);
+                box-shadow: 0 0 0 4px rgba(31, 123, 143, 0.15);
             }
-            button {
-                width: 100%; 
-                background: #145a6a; 
-                color: white; 
-                padding: 14px; 
-                border: none; 
-                border-radius: 10px; 
-                font-size: 18px; 
-                font-weight: bold;
-                margin-top: 25px; 
+
+            .input-group textarea {
+                resize: vertical;
+                min-height: 80px;
+            }
+
+            .btn-submit {
+                width: 100%;
+                background: #0f4d5e;
+                color: white;
+                font-size: 18px;
+                font-weight: 700;
+                padding: 16px;
+                border: none;
+                border-radius: 30px;
                 cursor: pointer;
                 transition: 0.2s;
+                margin-top: 8px;
+                letter-spacing: 0.5px;
+                box-shadow: 0 8px 24px rgba(15, 77, 94, 0.25);
             }
-            button:hover {
-                background: #0e4552;
+
+            .btn-submit:hover {
+                background: #0b3b47;
                 transform: scale(1.01);
+                box-shadow: 0 12px 32px rgba(15, 77, 94, 0.35);
             }
-            .version-tag {
-                text-align: center; 
-                margin-top: 20px; 
-                color: #7a9aa5; 
-                font-size: 12px;
-                background: #eef5f7;
-                padding: 5px;
-                border-radius: 20px;
-            }
-            .hidden { display: none; }
-            #successMessage {
+
+            .success-message {
+                display: none;
                 background: #dff0f2;
-                color: #145a6a;
-                padding: 15px;
-                border-radius: 10px;
+                color: #0f4d5e;
+                padding: 14px 18px;
+                border-radius: 20px;
                 margin-top: 20px;
+                font-weight: 600;
                 text-align: center;
-                font-weight: bold;
+                border-left: 5px solid #0f4d5e;
+            }
+
+            .success-message.show {
+                display: block;
+            }
+
+            .footer-credit {
+                margin-top: 28px;
+                text-align: center;
+                font-size: 13px;
+                color: #5b8795;
+                border-top: 1px solid rgba(11, 59, 71, 0.07);
+                padding-top: 20px;
+                letter-spacing: 0.3px;
+            }
+
+            .footer-credit strong {
+                color: #0b3b47;
+                font-weight: 600;
+            }
+
+            .badge {
+                display: inline-block;
+                background: #0b3b47;
+                color: white;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 3px 12px;
+                border-radius: 30px;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                margin-top: 6px;
+            }
+
+            @media (max-width: 480px) {
+                .portal-card {
+                    padding: 28px 18px;
+                }
+                h1 {
+                    font-size: 24px;
+                }
             }
         </style>
     </head>
     <body>
-    <div class="card">
-        <h1>🏥 GreenValley Health</h1>
-        <p class="subtitle">Book your appointment online</p>
+
+    <div class="portal-card">
+        <div class="brand-icon">🩺</div>
+        <h1>GreenValley Health</h1>
+        <p class="tagline">Secure · Quick · Compassionate</p>
+
         <form id="appointmentForm">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="e.g. Jane Doe" required>
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="jane@example.com" required>
-            <label for="reason">Reason for Visit</label>
-            <textarea id="reason" rows="3" placeholder="Describe your symptoms..." required></textarea>
-            <button type="submit">📅 Submit Request</button>
+            <div class="input-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="e.g. Maxwell Akabogu" required />
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="input-group">
+                <label for="reason">Reason for Visit</label>
+                <textarea id="reason" placeholder="Briefly describe your symptoms..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">📅 Request Appointment</button>
         </form>
-        <div id="successMessage" class="hidden">
-            ✅ Appointment request received! We'll contact you within 24 hours.
+
+        <div id="successMessage" class="success-message">
+            ✅ Thank you! We'll reach out within 24 hours.
         </div>
-        <div class="version-tag">Interactive Portal v2.0 | Live</div>
+
+        <div class="footer-credit">
+            <strong>by: MaxwelCyber</strong> · <span class="badge">v2.0 · Live</span>
+        </div>
     </div>
+
     <script>
-        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        const form = document.getElementById('appointmentForm');
+        const successDiv = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const msg = document.getElementById('successMessage');
-            msg.classList.remove('hidden');
-            msg.innerText = `✅ Thank you, ${name}! Your appointment request has been received.`;
-            this.reset();
-            msg.scrollIntoView({ behavior: 'smooth' });
+
+            const name = document.getElementById('fullName').value.trim() || 'Patient';
+            successDiv.textContent = `✅ Thank you, ${name}! We'll reach out within 24 hours.`;
+            successDiv.classList.add('show');
+
+            // Reset the form
+            form.reset();
+
+            // Smooth scroll to the success message
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     </script>
+
     </body>
     </html>
