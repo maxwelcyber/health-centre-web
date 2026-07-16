@@ -5,7 +5,7 @@ metadata:
   labels:
     app: health-centre-web
 spec:
-  replicas: 2  # Running 2 copies right away for basic high availability
+  replicas: 2
   selector:
     matchLabels:
       app: health-centre-web
@@ -16,10 +16,9 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: findash.azurecr.io/health-centre-web:v2
+        image: nginx:alpine   # <--- CHANGE 1: Use the public Nginx image
         ports:
         - containerPort: 80
-        # Defining resource boundaries (good practice even without HPA)
         resources:
           requests:
             cpu: "50m"
@@ -27,3 +26,12 @@ spec:
           limits:
             cpu: "100m"
             memory: "128Mi"
+        # CHANGE 2: Mount the ConfigMap volume here
+        volumeMounts:
+        - name: web-files
+          mountPath: /usr/share/nginx/html  # Nginx's default web directory
+      # CHANGE 3: Define the volume that uses the ConfigMap
+      volumes:
+      - name: web-files
+        configMap:
+          name: health-web-config   # The name of the ConfigMap you'll create
