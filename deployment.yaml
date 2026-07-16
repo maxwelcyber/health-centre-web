@@ -1,21 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-sandbox-app
+  name: health-web-deploy
   labels:
-    app: my-sandbox-app
+    app: health-centre-web
 spec:
-  replicas: 2
+  replicas: 2  # Running 2 copies right away for basic high availability
   selector:
     matchLabels:
-      app: my-sandbox-app
+      app: health-centre-web
   template:
     metadata:
       labels:
-        app: my-sandbox-app
+        app: health-centre-web
     spec:
       containers:
-      - name: my-sandbox-app
-        image: sandboxacr26.azurecr.io/my-sandbox-app:v2
+      - name: nginx
+        image: findash.azurecr.io/health-centre-web:v2
         ports:
         - containerPort: 80
+        # Defining resource boundaries (good practice even without HPA)
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
